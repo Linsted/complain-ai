@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  postgres-ai:
+    image: pgvector/pgvector:pg16
+    container_name: local_pgvector
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_ai_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  pg_ai_data:
